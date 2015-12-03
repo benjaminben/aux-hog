@@ -1,9 +1,11 @@
 console.log('main.js loaded!');
-
 $(document).ready(function() {
-
-  var circles   = _.template($('#circles-template').html()),
-      $destination  = $('main'),
+  var headerName   = _.template($('#headerName-template').html()),
+      circlePrompt   = _.template($('#circlePrompt-template').html()),
+      circle   = _.template($('#circle-template').html()),
+      $headerDestination  = $('#welcome'),
+      $promptDestination  = $('#circlePrompt'),
+      $circleDestination  = $('#circleList'),
       friendsToAdd = [],
       filteredUsers = [],
       searchName    = '',
@@ -11,24 +13,15 @@ $(document).ready(function() {
       friendId;
   // =============Templating=============
   // ====================================
-
-
-  function render() {
-    circles;
-  }
-
-  $destination.append(circles);
+  $headerDestination.append(headerName);
+  $promptDestination.append(circlePrompt);
+  $circleDestination.append(circle);
   function circleView(){
-
   }
-
   // ================Main================
   // ====================================
-
-
   function buildUri(nameInput) {
       var baseUri = 'https://api.spotify.com/v1/users/';
-
       var searchParam = nameInput
                         .split(",")
                         .map(function(str){
@@ -36,7 +29,6 @@ $(document).ready(function() {
                         });
       return baseUri + searchParam
     }
-
   function doSearch(currentSearch){
     $.ajax({
       type: 'GET',
@@ -56,7 +48,6 @@ $(document).ready(function() {
         } else {
           profileImage = null;
         }
-
         if (profileImage) {
           $('#friend').append('<div id="proImg">');
           $('#proImg').css('background-image', 'url(' + profileImage + ')');
@@ -64,8 +55,6 @@ $(document).ready(function() {
           $('#friend').append('<div id="proImg">');
           $('#proImg').css('background-image', 'url(http://www.sessionlogs.com/media/icons/defaultIcon.png)');
         }
-
-
         if(foundUser.display_name) {
           $('#friend').append(foundUser.display_name);
         } else {
@@ -80,13 +69,11 @@ $(document).ready(function() {
       }
     });
   }
-
   $('#search').on('keyup blur', function(evt) {
     var currentSearch = $('#search').val();
       $('#friend').empty();
       doSearch(currentSearch);
   });
-
   $('#createCircle').on('click', function(){
     var title = $('#titleField').val();
     $.each($('.addedFriend'), function(i, friend){
@@ -110,10 +97,7 @@ $(document).ready(function() {
         console.log(errorThrown);
       }
     });
-      render();
   });
-
-
   $('#circlesList').delegate('.stationLink', 'click', function(evt){
     evt.preventDefault();
     var id = $(this).attr('id');
@@ -126,26 +110,76 @@ $(document).ready(function() {
       },
       success: function(data) {
         console.log(data);
-        $('#spotifyPlayer').append('<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:' + data + '" frameborder="0" allowtransparency="true"></iframe>');
+        $('main').append('<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:' + data + '" frameborder="0" allowtransparency="true"></iframe>');
       },
       error: function() {
         console.log('herb')
       }
     });
   });
-
   $('#circlesList').delegate('.deleteCircle', 'click', function(evt){
-        var id = $(this).attr('id');
-        $('#' + id).remove();
-        $.ajax({
-          method: 'DELETE',
-          url: '/circles/' + id
-        }).done(function(data) {
-          console.log(data);
-          render();
-        });
+    var id = $(this).attr('id');
+    $('#' + id).remove();
+    $.ajax({
+      method: 'DELETE',
+      url: '/circles/' + id
+    }).done(function(data) {
+      console.log(data);
+    });
+  });
+  $('#circlesList').delegate('.editCircle', 'click', function(evt){
+    evt.preventDefault();
+    var id = $(this).attr('data-indexNumber');
+    $.ajax({
+      method: 'GET',
+      url: '/updateCircle',
+      dataType: 'json',
+      data: {
+        _id: id
+      },
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR.status);
+        console.log(textStatus);
+        console.log(errorThrown);
+      }
+    });
+  });
+  $("#logo").on("click", function(e) {
+    e.preventDefault();
+    $("#aboutPiRS").slideToggle();
+  })
+  $("#createCircleLink").on("click", function(e) {
+    e.preventDefault();
+    $("#createCircleArea").slideToggle();
+  });
+  $(".circleHeader").on('click', function() {
+    var parent = $(this).parent();
+    var circleMembers = $(parent).children(".circleMembers");
+    if (parent.children(".playButton").css("display") === "none"){
+      $(this).children(".playButton").css("display", "inline")
+      $(parent).css({"flex-direction": "column", "height": "100%"});
+      circleMembers.css({"flex-direction": "column"});
+      circleMembers.children(".circleMember").css({"width": "100%", "border": "1px solid black"})
+      circleMembers.children(".currentUser").css({"display": "block"});
+      circleMembers.children(".circleMember").children(".circleMemberName").css({"display": "inline"});
+      $(parent).children().css("display", "inline-block");
+      circleMembers.hide();
+      circleMembers.slideToggle(300);
+    } else {
+      circleMembers.slideToggle(300, function() {
+        circleMembers.children(".circleMember").children(".circleMemberName").css({"display": "none"});
+        circleMembers.children(".currentUser").css({"display": ""});
+        circleMembers.children(".circleMember").css({"width": "", "border": ""});
+        circleMembers.css({"flex-direction": ""});
+        $(parent).css({"flex-direction": "", "height": ""})
+        $(this).children(".playButton").css("display", "none");
+        $(parent).children(".playButton").css("display", "none");
+        circleMembers.css("display", "flex")
+        circleMembers.show();
       });
-
+    }
+  });
 });
-
-
