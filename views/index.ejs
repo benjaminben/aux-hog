@@ -20,7 +20,7 @@
       <div id="moreInfo">
         <p id="whereAmI">where am I?</p>
         <p id="gotIt">got it.</p>
-        <div id="moreInfoMenu">
+        <div id="moreInfoMenu" class="flex column">
           <div class="menuItem" id="aboutPirs"><p>PiRS</p></div>
           <div class="menuItem" id="legal"><p>legal</p></div>
           <div class="menuItem" id="contact"><p>contact</p></div>
@@ -32,66 +32,67 @@
 
       </section>
     </div>
-    <div id="content">
-      <div id="circleHead">
-        <div id="circlePrompt">
-        <script type="text/template" id="circlePrompt-template">
-          <% if (user.circles.length > 0) { %>
-            <% console.log("hi") %>
-            <p>select or <a id="createCircleLink" href="#">create a circle</a></p>
-          <% } else { %>
-            <% console.log(user) %>
-            <h1><a id="createCircleLink" href="#">create a circle</a></h1>
-          <% } %>
-        </script>
-        </div>
-        <div id="createCircleArea">
-          <div id="createCircleForm">
-            <input id="titleField" class="input-field" placeholder='Group Name (e.g. Boom Squad)'>
-            <input id="search" type="search" autocapitalize="off" placeholder="Search for Friends (e.g. pieluvr3141)">
-            <div id="buttonsAndFriends">
-              <button id="addFriend">add friend</button>
-              <div id="friend"></div>
-              <div id="friendsToAdd"></div>
-              <button id="createCircle">create circle</button>
-            </div>
-            </div>
+    <div id="circleHead">
+      <div id="circlePrompt">
+      <script type="text/template" id="circlePrompt-template">
+        <% if (user.circles.length > 0) { %>
+          <% console.log("hi") %>
+          <p>select or <a id="createCircleLink" href="#">create a circle</a></p>
+        <% } else { %>
+          <% console.log(user) %>
+          <h1><a id="createCircleLink" href="#">create a circle</a></h1>
+        <% } %>
+      </script>
+      </div>
+      <div id="createCircleArea">
+        <div id="createCircleForm">
+          <input id="titleField" class="input-field" placeholder='Group Name (e.g. Boom Squad)'>
+          <input id="search" type="search" autocapitalize="off" placeholder="Search for Friends (e.g. pieluvr3141)">
+          <div id="buttonsAndFriends">
+            <button id="addFriend">add friend</button>
+            <div id="friend"></div>
+            <div id="friendsToAdd"></div>
+            <button id="createCircle">create circle</button>
+          </div>
           </div>
         </div>
-        <div id="circlesList">
-          <script type="text/template" id="circle-template">
-            <% if (user.circles.length > 0) { %>
-            <% user.circles.forEach(function(circle){ %>
-              <div class="circle">
-                <div class="circleHeader">
-                  <div class="circleTitle"><p><%= circle.title %><p></div>
-                </div>
-                <div data-indexNumber="<%= circle._id %>" data-title="<%= circle.title %>" class="playButton stationLink"><img src="https://i.imgur.com/ODkyHmb.png"></div>
-                <div class="circleMembers">
-                  <% circle.users.forEach(function(user){ %>
-                    <div class="circleMember">
-                      <img class="circleMemberImage" src="https://i.imgur.com/NRhYDQD.png">
-                    </div>
-                  <% }) %>
-                </div>
-                <div class="circleMembersExpanded">
-                  <% circle.users.forEach(function(user){ %>
-                    <div class="circleMemberExpanded">
-                      <img class="circleMemberImage" src="https://i.imgur.com/NRhYDQD.png">
-                      <div class="circleMemberName"><%= user.spotifyId %></div>
-                      <div class="circleMemberDelete"><img src="https://i.imgur.com/OwlzNxO.png"></div>
-                    </div>
-                  <% }) %>
-                  <div data-indexNumber="<%= circle._id %>" class="deleteCircle">
-                    <img class="deleteX" src="https://i.imgur.com/OwlzNxO.png">
-                    <div class="deleteText">DELETE CIRCLE</div>
+      </div>
+      <div id="circlesList">
+        <script type="text/template" id="circle-template">
+          <% if (user.circles.length > 0) { %>
+          <% user.circles.forEach(function(circle){ %>
+            <div class="circle flex">
+              <div class="circleHeader">
+                <span class="circleTitle">
+                  <%= circle.title %>
+                </span>
+              </div>
+              <div data-indexNumber="<%= circle._id %>" data-title="<%= circle.title %>" class="playButton stationLink"><img src="https://i.imgur.com/ODkyHmb.png"></div>
+              <div class="circleMembers">
+                <% circle.users.forEach(function(user){ %>
+                  <div class="circleMember">
+                    <img class="circleMemberImage" src="https://i.imgur.com/NRhYDQD.png">
                   </div>
+                <% }) %>
+              </div>
+              <div class="circleMembersExpanded">
+                <% circle.users.forEach(function(user){ %>
+                  <% console.log(user) %>
+                  <div class="circleMemberExpanded">
+                    <img class="circleMemberImage" src="https://i.imgur.com/NRhYDQD.png">
+                    <div class="circleMemberName"><%= user.spotifyId %></div>
+                    <div class="circleMemberDelete"><img src="https://i.imgur.com/OwlzNxO.png"></div>
+                  </div>
+                <% }) %>
+                <div data-indexNumber="<%= circle._id %>" class="deleteCircle">
+                  <img class="deleteX" src="https://i.imgur.com/OwlzNxO.png">
+                  <div class="deleteText">DELETE CIRCLE</div>
                 </div>
               </div>
-            <% }) %>
-          <% } %>
-        </script>
-        </div>
+            </div>
+          <% }) %>
+        <% } %>
+      </script>
       </div>
   </main>
 <$ } else { $>

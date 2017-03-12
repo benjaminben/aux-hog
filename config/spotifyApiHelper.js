@@ -82,6 +82,7 @@ module.exports = {
     var iter = 0;
     return new Promise(function(resolve, reject) {
       Circle.findById(circleId).populate('users').exec(function(err, circle) {
+        if (!circle) {return}
         var circlePromises = circle.users.map(function(user){
           var userLib = {
             name: user.displayName,

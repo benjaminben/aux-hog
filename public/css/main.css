@@ -1,9 +1,7 @@
-body {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
+html, body {
   height: 100%;
+}
+body {
   margin: 0;
   font-family: 'proxima-nova', 'Helvetica', 'Arial', sans-serif;
   background: #181818;
@@ -24,20 +22,6 @@ a:hover {
 main {
   width: 100vw;
   height: 100vh;
-  position: absolute;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-          justify-content: space-between;
   overflow-x: hidden;
 }
 
@@ -45,25 +29,8 @@ h1 {
   white-space: nowrap;
 }
 
-
-#content {
-  width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-          flex-grow: 1;
+.fixed {
+  position: fixed;
 }
 
 #topHeader {
@@ -229,11 +196,6 @@ ul {
   top: 80px;
   width: 100%;
   display: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-          flex-direction: column;
   -webkit-justify-content: space-around;
   -ms-flex-pack: distribute;
           justify-content: space-around;
@@ -417,29 +379,38 @@ button:hover {
 }
 
 #circlesList {
+  height: auto;
+  padding-bottom: 80px;
+}
+
+.flex {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+}
+.column {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
           flex-direction: column;
-  height: auto;
+}
+.justify-around {
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+          justify-content: space-around;
+}
+.justify-between {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .circle {
   width: 100%;
   border: 1px solid black;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-          justify-content: space-between;
   position: relative;
   z-index: 0;
 }
@@ -450,10 +421,6 @@ button:hover {
   min-height: 50px;
   max-height: 100px;
   cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-transition: color .05s ease-in;
           transition: color .05s ease-in;
   position: relative;
@@ -471,10 +438,6 @@ button:hover {
 
 .circleTitle {
   font-size: 4.1vw;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   margin-left: .5vw;
 }
 
@@ -509,10 +472,6 @@ button:hover {
 }
 
 .circleMembers {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
   z-index: 5;
   position: absolute;
   right: 0;
@@ -530,10 +489,6 @@ button:hover {
   line-height: 6vw;
   width: 100%;
   border: 1px solid black;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .circleMemberImage {
@@ -624,11 +579,9 @@ button:hover {
 }
 
 #playlistDest {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   height: 80px;
 }
 

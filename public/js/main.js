@@ -147,7 +147,7 @@ $(document).ready(function() {
 
         $("#playlistDest").remove()
 
-        $('main').append('<div id="playlistDest"><iframe src="https://embed.spotify.com/?uri=spotify:trackset:'+ title +':' + data + 'height="80px" frameborder="0" allowtransparency="true"></iframe><button id="savePlaylist" data-title="' + title + '" data-trackids="' + data + '">save<br>playlist</button></div>');
+        $('main').append('<div id="playlistDest" class="fixed flex"><iframe src="https://embed.spotify.com/?uri=spotify:trackset:'+ title +':' + data + 'height="80px" frameborder="0" allowtransparency="true"></iframe><button id="savePlaylist" data-title="' + title + '" data-trackids="' + data + '">save<br>playlist</button></div>');
 
         // SAVE IFRAME TO LOCAL STORAGE!!!
 
