@@ -36,9 +36,11 @@
       <div id="circleHead">
         <div id="circlePrompt">
         <script type="text/template" id="circlePrompt-template">
-          <% if (userCircles.length > 0) { %>
+          <% if (user.circles.length > 0) { %>
+            <% console.log("hi") %>
             <p>select or <a id="createCircleLink" href="#">create a circle</a></p>
           <% } else { %>
+            <% console.log(user) %>
             <h1><a id="createCircleLink" href="#">create a circle</a></h1>
           <% } %>
         </script>
@@ -58,8 +60,8 @@
         </div>
         <div id="circlesList">
           <script type="text/template" id="circle-template">
-            <% if (userCircles.length > 0) { %>
-            <% userCircles.forEach(function(circle){ %>
+            <% if (user.circles.length > 0) { %>
+            <% user.circles.forEach(function(circle){ %>
               <div class="circle">
                 <div class="circleHeader">
                   <div class="circleTitle"><p><%= circle.title %><p></div>
@@ -113,12 +115,14 @@
     var Circle;
 
     <$ if (user) { $>
+      // console.log("blug");
       user = JSON.parse('<$- JSON.stringify(user) $>');
-      console.log(user);
+      // console.log(user);
       name = '<$- user.displayName $>';
-      userCircles = JSON.parse('<$- JSON.stringify(userCircles) $>');
+      console.log(<$- JSON.stringify(userCircles) $>)
+      // userCircles = JSON.parse('<$- JSON.stringify(userCircles) $>');
       userCircles.forEach(function(circle) {
-        console.log(circle);
+        // console.log(circle);
       });
     <$ } $>
 
